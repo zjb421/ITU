@@ -1,0 +1,8 @@
+System: anything that you want to study
+Actor: agents external to the system
+Objects: things inside the system
+
+Measure:
+
+	Project(developer's work), for budgetting and scheduling
+	product, for quality assessment
