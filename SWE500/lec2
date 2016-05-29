@@ -19,3 +19,8 @@ case study:
 	manage tenents for multiple unit property
 	turn on appliances based on tements property
 	alarm for illegal intruders
+
+	lock/unlock
+	Sound alarm on break-in
+	
+Customer wishes->requirement engineering->specifications
