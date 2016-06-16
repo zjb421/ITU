@@ -1,28 +1,130 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Login Page</title>
-    <meta charset="UTF-8">
+<html lang="en">
+  <head>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src=js/main.js></script>
-</head>
-<body>
-<script>
+    <script src=js/holder.min.js></script>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/signin.css">
 
-</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <meta name="description" content="This is a connectPlus App">
+    <meta name="author" content="James Zhao">
+    <title>Welcome to connectPlus</title>
+  </head>
 
-<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
+  <body>
 
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"><a href="index.html">Home</a></li>
+            <li role="presentation"><a href="service.html">Service</a></li>
+            <li role="presentation"><a href="index.html">Help</a></li>
+            <div class="pull-right">
+              <div class="btn-group">
+                <button class="btn btn-primary" id='logout'>
+                  Logout
+                </button>
+              </div>
+            </div>
+          </ul>
 
-<div id="status">
-</div>
+          <div id="status" class="container-fluid"></div>
+          <h2 class="sub-header">Welcome to connectPlus</h2>
 
-</body>
+          <div class="row placeholders">
+            <div id ='user'></div>
+            <div class="placeholder" id ='userPic'></div>
+          </div>
+
+          <h3 class="sub-header">List of Services</h3>
+
+          <button id='addService' type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Service</button>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Contact info</th>
+                </tr>
+              </thead>
+              <tbody>
+                <div id='list'></div>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add a service</h4>
+                </div>
+
+                <div class="modal-body">
+
+                  <form class="form-horizontal" method="post" action="">
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='title' class="form-control" placeholder="Service Title">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" name='description' rows="5"></textarea>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" name='email' id="inputEmail3" placeholder="Email">
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Contact Information</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name='contact' placeholder="Contact Information">
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-default" id='submit'>Submit</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </form>
+                </div>
+              </div>   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
 </html>

@@ -4,19 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src=js/main.js></script>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/signin.css">
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Login Page">
+    <meta name="author" content="James Zhao">
 
     <title>Please sign in</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href=css/signin.css rel="stylesheet">
 </head>
 
@@ -24,7 +30,7 @@
 
 <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" action="index.html">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -36,14 +42,11 @@
             </label>
         </div>
         <div class="btn">
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" type="submit"></fb:login-button>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
 
     </form>
-</div>
-
-<div id="status">
 </div>
 </body>
 </html>
