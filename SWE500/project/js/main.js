@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    var userName, title, description, email, contact, userPic, userId;
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyAn6LnSQpx5BG9YkslXQkz7SnW0rZ9val0",
@@ -11,9 +11,6 @@ $(document).ready(function() {
 
     var ref = new Firebase("https://project-4337251130944270718.firebaseio.com/");
 
-    var userName;
-    var userPic;
-    var userId;
     firebase.initializeApp(config);
 
    // This is called with the results from from FB.getLoginStatus().
@@ -28,14 +25,16 @@ $(document).ready(function() {
             // Logged into your app and Facebook.
             testAPI();
         } else if (response.status === 'not_authorized') {
-            // The person is logged into Facebook, but not your app.
-            document.getElementById('status').innerHTML = 'Please log ' +
-                    'into this app.';
+            if(window.location.pathname == '/project/index.html') {
+              window.location.href = 'login.html';
+            }
+
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
-            document.getElementById('status').innerHTML = 'Please log ' +
-                    'into Facebook.';
+            if(window.location.pathname == '/project/index.html') {
+              window.location.href = 'login.html';
+            }
         }
     }
 
@@ -49,45 +48,45 @@ $(document).ready(function() {
     }
 
     window.fbAsyncInit = function() {
-        FB.init({
-            appId      : 1785904134961851,
-            cookie     : true,  // enable cookies to allow the server to access
-            // the session
-            xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.6' // use graph api version 2.5
-        });
+      FB.init({
+          appId      : 1785904134961851,
+          cookie     : true,  // enable cookies to allow the server to access
+          // the session
+          xfbml      : true,  // parse social plugins on this page
+          version    : 'v2.6' // use graph api version 2.5
+      });
 
-        // Now that we've initialized the JavaScript SDK, we call
-        // FB.getLoginStatus().  This function gets the state of the
-        // person visiting this page and can return one of three states to
-        // the callback you provide.  They can be:
-        //
-        // 1. Logged into your app ('connected')
-        // 2. Logged into Facebook, but not your app ('not_authorized')
-        // 3. Not logged into Facebook and can't tell if they are logged into
-        //    your app or not.
-        //
-        // These three cases are handled in the callback function.
+      // Now that we've initialized the JavaScript SDK, we call
+      // FB.getLoginStatus().  This function gets the state of the
+      // person visiting this page and can return one of three states to
+      // the callback you provide.  They can be:
+      //
+      // 1. Logged into your app ('connected')
+      // 2. Logged into Facebook, but not your app ('not_authorized')
+      // 3. Not logged into Facebook and can't tell if they are logged into
+      //    your app or not.
+      //
+      // These three cases are handled in the callback function.
 
-        FB.getLoginStatus(function(response) {
+      FB.getLoginStatus(function(response) {
 
-            statusChangeCallback(response);
-        });
+          statusChangeCallback(response);
+      });
 
-        FB.Event.subscribe('auth.login', function() {
-            console.log("logged in");
-            if(window.location.pathname == '/project/login.html') {
-                window.location.href = 'index.html';
-            }
-        });
+      FB.Event.subscribe('auth.login', function() {
+          console.log("logged in");
+          if(window.location.pathname == '/project/login.html') {
+              window.location.href = 'index.html';
+          }
+      });
 
-        FB.Event.unsubscribe('auth.login', function() {
-            console.log('here');
-        });
+      FB.Event.unsubscribe('auth.login', function() {
+          console.log('here');
+      });
 
-        FB.Event.subscribe('auth.logout', function(){
-            window.location.href = 'login.html';
-        });
+      FB.Event.subscribe('auth.logout', function(){
+          window.location.href = 'login.html';
+      });
     };
 
     // Load the SDK asynchronously
@@ -121,7 +120,26 @@ $(document).ready(function() {
 
    // var list = '<tr><td>' + + '</td><td>Lorem</td></tr>';
 
-    //$('#list').html(list);
+
+    $('#list').ready(function() {
+      // Get a database reference to our posts
+      var ref = new Firebase("https://project-4337251130944270718.firebaseio.com/services");
+      var requests = '';
+      // Attach an asynchronous callback to read the data at our posts reference
+      ref.on("value", function(snapshot) {
+        var snap = snapshot.val();
+        requests += '<tr>';
+        $.each(snap, function( i, eachRequest ) {
+          requests += '<td>' + eachRequest.title +'</td><td>' + eachRequest.description + '</td><td>' + eachRequest.email + '</td><td>' + eachRequest.contact +'</td><td>' + eachRequest.name + '</td>'
+        });
+        requests += '</tr>';
+        $('#list').html(requests);
+
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+    });
+
     $('#logout').click(function() {
         FB.logout(function(response) {
             if(window.location.pathname == '/project/index.html') {
@@ -133,17 +151,30 @@ $(document).ready(function() {
 
     $('#submit').click(function() {
 
-      //var title = <?php echo $_POST["title"]?;>;
-      //var description = <?php echo $_POST["description"]?>;
-      //var email = <?php echo $_POST["email"]?>;
-      //var contact = <?php echo $_POST["contact"]?>;
+      /*
+      var values = {};
+      $.each($('#request').serializeArray(), function(i, field) {
+        values[field.name] = field.value;
+      });
 
-      firebase.database().ref('services/' + userId).set({
+      var title = values.title;
+      var description = values.description;
+      var email = values.email;
+      var contact = values.contact;
+      */
+      title =$('#title').val();
+      description =$('#description').val();
+      email =$('#inputEmail3').val();
+      contact =$('#contact').val();
+
+      firebase.database().ref('services/' + Date.now()).set({
         title: title,
         description: description,
         email: email,
-        contact: contact
+        contact: contact,
+        name: userName
       });
+      $('#hide').hide();
     });
 
     function writeUserData(userId, name) {
@@ -158,4 +189,3 @@ $(document).ready(function() {
       //});
     });
 });
-
