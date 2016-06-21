@@ -1,5 +1,7 @@
+var deletes = new Array();
+var userName, title, description, email, contact, userPic, userId;
+
 $(document).ready(function() {
-    var userName, title, description, email, contact, userPic, userId;
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyAn6LnSQpx5BG9YkslXQkz7SnW0rZ9val0",
@@ -25,14 +27,14 @@ $(document).ready(function() {
             // Logged into your app and Facebook.
             testAPI();
         } else if (response.status === 'not_authorized') {
-            if(window.location.pathname == '/project/index.html') {
+            if(window.location.pathname == '/project/index.html' || window.location.pathname == '/project/') {
               window.location.href = 'login.html';
             }
 
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
-            if(window.location.pathname == '/project/index.html') {
+            if(window.location.pathname == '/project/index.html' || window.location.pathname == '/project/') {
               window.location.href = 'login.html';
             }
         }
@@ -113,13 +115,8 @@ $(document).ready(function() {
                 userPic = response.data.url;
                 $('#userPic').html('<img src="' + userPic + '" width="100" height="100" class="img" alt="Generic placeholder thumbnail">');
             });
-
-            //document.getElementById('status').innerHTML ='Thanks for logging in, ' + response.name + '!';
         });
     }
-
-   // var list = '<tr><td>' + + '</td><td>Lorem</td></tr>';
-
 
     $('#list').ready(function() {
       // Get a database reference to our posts
@@ -128,11 +125,18 @@ $(document).ready(function() {
       // Attach an asynchronous callback to read the data at our posts reference
       ref.on("value", function(snapshot) {
         var snap = snapshot.val();
-        requests += '<tr>';
+        var count = 0;
         $.each(snap, function( i, eachRequest ) {
-          requests += '<td>' + eachRequest.title +'</td><td>' + eachRequest.description + '</td><td>' + eachRequest.email + '</td><td>' + eachRequest.contact +'</td><td>' + eachRequest.name + '</td>'
+          count ++;
+          deletes.push($("<button id=" + i + " type='button' class='btn btn-info btn-sm'>Delete</button>"));
+          requests += '<tr><td>' + eachRequest.title 
+                    +'</td><td>' + eachRequest.description
+                    + '</td><td>' + eachRequest.email 
+                    + '</td><td>' + eachRequest.contact
+                    +'</td><td  id= "each_' + i +'">' + eachRequest.name
+                    + '</td><td><button id=' + i + ' type="button" class="btn btn-info btn-sm">Delete</button></td></tr>'
         });
-        requests += '</tr>';
+        
         $('#list').html(requests);
 
       }, function (errorObject) {
@@ -142,11 +146,31 @@ $(document).ready(function() {
 
     $('#logout').click(function() {
         FB.logout(function(response) {
-            if(window.location.pathname == '/project/index.html') {
+            if(window.location.pathname == '/project/index.html'  || window.location.pathname == '/project/') {
                 window.location.href = 'login.html';
             }
             console.log('logged out ' + response);
         });
+    });
+
+    $("body").on('click', 'button', function() {
+      var myId = this.id;
+
+      if (myId > 0) {
+        var eachId = "#each_" + myId;
+        var checkedId = $(eachId).html();
+        if(userName == checkedId) {
+          ref.child('services/' + myId).remove(function(err) {
+            if(err) {
+              console.log("delete failed");
+            } else {
+              console.log("successfully deleted");
+            }
+          });
+        } else {
+          alert("Dont delete someone else's service, fool!");
+        }
+      }
     });
 
     $('#submit').click(function() {
@@ -156,11 +180,6 @@ $(document).ready(function() {
       $.each($('#request').serializeArray(), function(i, field) {
         values[field.name] = field.value;
       });
-
-      var title = values.title;
-      var description = values.description;
-      var email = values.email;
-      var contact = values.contact;
       */
       title =$('#title').val();
       description =$('#description').val();
@@ -184,6 +203,7 @@ $(document).ready(function() {
     }
 
     $('#addService').click(function() {
+      $('#hide').show();
       //firebase.database().ref('services/' + userId).set({
       //  title: title 
       //});
