@@ -1,8 +1,8 @@
-# ITUShit
+# ITU
 
 This shit will include:
 
-My node and shit
-My code and shit
+My node
+My code
 
 Hope I can give this shit to my kids and they will laugh about this shit
