@@ -1,7 +1,11 @@
 ConnectPlus App Readme
 
-The Application Functionality
-Target Audience
-Software Architecture
-Technical Solutions
-Impact to ITU
+1.The Application Functionality
+
+2.Target Audience
+
+3.Software Architecture
+
+4.Technical Solutions
+
+5.Impact to ITU
