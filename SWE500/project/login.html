@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="http://tmpfile.freelogodesign.org/b40d1e32-ee74-4f1c-9eed-04f4555eb386.png">
 
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
@@ -17,7 +18,6 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/signin.css">
 
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Login Page">
     <meta name="author" content="James Zhao">
 
@@ -27,11 +27,17 @@
 </head>
 
 <body>
-    <div class="container">
 
+    <div class="container">
+        <h2 class="sub-header">Welcome to ConnectPlus, Please sign in with your facebook account!</h2>
         <form class="form-signin" action="index.html">
-            <!--
-            <h2 class="form-signin-heading">Please sign in</h2>
+
+            <h2><img src="http://tmpfile.freelogodesign.org/b40d1e32-ee74-4f1c-9eed-04f4555eb386.png" alt="group pic"></h2>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" type="submit"></fb:login-button>
+            <br><br>
+            <hr>
+            <b>Note: The regular Sign in is disabled due to network security. Please only use facebook for signing in for now, thanks!</b>
+            <!--<h2 class="form-signin-heading">Please sign in</h2>-->
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
@@ -41,12 +47,7 @@
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            -->
-            <h2 class="sub-header"><img src="group.png" alt="group pic" style="width:400px;height:400px;"></h2>
-
-            <h2 class="sub-header">Log In with your Facebook Account, Fools!</h2>
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" type="submit"></fb:login-button>
-           <!-- <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button> -->
+           <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign in</button>
 
         </form>
     </div>
