@@ -1,174 +1,75 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <title>Feedback</title>
+<html lang="en">
+  <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/signin.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <title>Register</title>
+    <script  src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <script src=js/main.js></script>
-    <script src=js/holder.min.js></script>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/signin.css">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <meta name="description" content="This is a connectPlus App">
-    <meta name="author" content="James Zhao">
-    <title>Welcome to connectPlus</title>
-</head>
-
-<body>
-
-    <div class="row">
-      <div class="col-sm-20 col-sm-offset-2 col-md-10 col-md-offset-1 main">
-        <ul class="nav nav-tabs" role="tablist">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/service.js"></script>
+  </head>
+  
+  <body ng-app="myApp">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <ul class="nav nav-tabs" role="tablist">
             <li role="presentation"><a href="index.html">Home</a></li>
             <li role="presentation"><a href="service.html">Catagory</a></li>
             <li role="presentation"><a href="feedback.html">Feedback</a></li>
             <li role="presentation"><a href="connect.html">Connect</a></li>
-          <div class="pull-right">
-            <div class="btn-group">
-              <button class="btn btn-primary" id='logout'>
+            <div class="pull-right">
+              <div class="btn-group">
+                <button class="btn btn-primary" id='logout'>
                 Logout
-              </button>
+                </button>
+              </div>
+            </div>
+          </ul>
+
+          <div class="row">
+            <div class=" col-lg-4 col-lg-offset-4" ng-controller="FeedbackController as feedbackCtrl">
+              <div ng-repeat="feedback in feedbackCtrl.feedbacks" ng-hide="feedbackCtrl.feedbacks === null">
+                <blockquote class="blockquote blockquote-reverse">
+                  <div><span class="glyphicon glyphicon-star" ng-repeat="star in feedback.stars track by $index"></span></div>
+                  <p>{{feedback.comment}}</p>
+                  <footer class="blockquote-footer"><cite>{{feedback.email}} on {{feedbackCtrl.date|date}}</cite></footer>
+                </blockquote>
+              </div>
+              <form class="form-horizontal" ng-controller="NewFeedbackController as newFeedbackCtrl" ng-submit="newFeedbackCtrl.submit()" novalidate>
+                <fieldset class="form-group">
+                  <label class="text-center">Email Address</label>
+                  <div>
+                    <input type="email" class="form-control" placeholder="example@xyz.com" ng-model="newFeedbackCtrl.newFeedback.email" required>
+                  </div>
+                  <br>
+                  <label class="text-center">Comments</label>
+                  <div>
+                    <textarea type="text" class="form-control" rows="5" maxlength="500" placeholder="Please enter no more than 500 characters" ng-model="newFeedbackCtrl.newFeedback.comment"required></textarea>
+                  </div>
+                  <br>
+                  <label class="text-center">How would you rate us {{newFeedbackCtrl.newFeedback.stars}}</label>
+                  <select class="form-control" ng-model="newFeedbackCtrl.newFeedback.stars" convert-to-number >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <br>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button class="btn btn-primary">Clear</button>
+                </fieldset>
+              </form>
             </div>
           </div>
-        </ul>
+          <img src="http://tmpfile.freelogodesign.org/ba068e9d-3119-495c-ad6b-eb51b0d9fe86.png" alt="group pic">
+        </div>
       </div>
     </div>
-<!--  -->
-<div class="container">
-    <form class="form-horizontal" role="form">
-        <h2>Feedback Form</h2>
-        <div class="form-group">
-            <label for="firstName" class="col-sm-3 control-label">Comment</label>
-            <div class="col-sm-9">
-                <input type="text" id="firstName" placeholder="How would you describe your experience in a sentence?" class="form-control" autofocus>
-                <span class="help-block">Eg: Best $20 ever spent!!</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-3">Did the instructor solve the problem</label>
-            <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" id="yes" value="yes">Yes
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" id="no" value="no">No
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" id="partially" value="partially">Partially
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- /.form-group -->
-        <div class="form-group">
-            <label class="control-label col-sm-3">Would you get help from this instructor again</label>
-            <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" id="Yes" value="Yes">Yes
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" id="No" value="No">No
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="radio-inline">
-                            <input type="radio" id="Maybe" value="Maybe">Maybe
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- /.form-group -->
-        <div class="form-group">
-            <label class="control-label col-sm-3">Check all that is applicable to to the instructor</label>
-            <div class="col-sm-9">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="knowledgeble" value="knowledgeble">Knowledgeble
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="toThePoint" value="toThePoint">To the point
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="friendly" value="friendly">Friendly
-                    </label>
-                </div>
-            </div>
-        </div> <!-- /.form-group -->
-        <div class="form-group">
-            <div class="col-sm-9 col-sm-offset-3">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox">I accept to the <a href="#">terms and conditions</a>
-                    </label>
-                </div>
-            </div>
-        </div> <!-- /.form-group -->
-        <div class="form-group">
-            <div class="col-sm-9 col-sm-offset-3">
-                <!--<button type="submit" class="btn btn-primary btn-block" id="submitfeedback">Submit</button>-->
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Submit</button>
-                <img src="http://tmpfile.freelogodesign.org/b40d1e32-ee74-4f1c-9eed-04f4555eb386.png" alt="group pic">
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-                    
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Submitted Successful</h4>
-                        </div>
-                        <div class="modal-body">
-                          <p>Congratualtions Fool! You submitted your feedback!</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
 
-            </div>
-        </div>
-
-    </form> <!-- /form -->
-</div> <!-- ./container -->
-</body>
-
+  </body>
 </html>
