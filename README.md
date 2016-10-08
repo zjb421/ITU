@@ -1,8 +1,10 @@
 # ITU
 
-This shit will include:
+This includes:
 
-My node
 My code
+My homework Assignments
+My projects
+My exams
 
-Hope I can give this shit to my kids and they will laugh about this shit
+
