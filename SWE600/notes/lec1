@@ -1,0 +1,54 @@
+Grading:
+
+	10% In class Quizzes/Attenance
+	25% Team Project
+	40% Final(Comprehensive)
+	25% Mid Term
+
+Project Ideas:
+
+	Software System for Auto Pilot Car:
+		driving a car from a to b
+		be able to chagne lanes
+		Follow Traffic Lights
+		Maintain a safe distance from viehicles(in fron and near)
+	
+	Embeddled System for glucometers:
+		measure blood glucose level
+		chart it/signal warning
+	
+	Software Systerm for microwave Oven
+	
+	Librarary manegement
+	
+	Hospital Management
+
+Lecture 1:
+
+What software engineering is:
+
+	communication with client or customer
+	abstraction of the problem
+	design the final product
+		->implementation/coding
+
+Object Orientation:
+
+	Objects
+	Classes
+	Atrributes
+	Methods
+	function
+	Inheritance
+	Encapsulation
+	Polymophism
+	Constructors
+	Interfaces
+	Abstraction
+
+Database
+
+Encryption
+
+URL  15 Symbols
+Find it in www.uml.org
