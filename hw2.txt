@@ -1,0 +1,198 @@
+SWE 525 Version Control Git Homework 2	12/02/2016
+
+
+Jianbo Zhao, 90357 
+ 
+1. How do we go about performing the following techniques in Git
+a. Finding which commit caused a particular bug
+Git log
+
+b. Listing commits with different formatting
+	 Git log --format=<format>
+
+c. Listing assumed-unchanged files
+	Git log --assume-unchanged
+  	git ls-files -v
+
+d.Deleting the current local branch after merging
+	git branch -d <branchname>
+e. Rewriting the entire history of a branch
+	git rebase -i --root
+
+git rebase -i <branchName>
+f.  Deleting a remote branch
+	 git push origin --delete <branch_name>
+
+g. After a lengthy session you’ve made a bunch of commits. But you’re not quite happy with the way they’re organized, and some of those commit messages could use rewording.
+
+git rebase -i HEAD~<number>					
+Then:						 						
+Remove commits by deleting lines.	
+Reorder commits by reordering lines.
+Replace "pick" with "edit" to mark a commit for amending.	
+Replace "pick" with "squash" to merge a commit with the previous one.
+If you marked a commit for editing, then run:	
+          	git commit --amend
+ Otherwise, run:
+git rebase --continue
+
+h.We intend to release a project, but it involves a file that should be kept private for some reason. Perhaps I left my credit card number in a text file and accidentally added it to the project. Deleting the file is insufficient, for the file can be accessed from older commits. We must remove the file from all commits. 
+
+git filter-branch --tree-filter 'rm top/secret/file' HEAD
+ .git/refs/original directory describes the state of affairs before the operation. Check the filter-branch command did what wanted
+delete this directory if wish to run more filter-branch command
+replace clones of  the project with the revised version if want to interact with them later
+
+
+i.  You’ve just discovered a broken feature in your program which you know for sure was working a few months ago. Argh! Where did this bug come from? If only you had been testing the feature as you developed. It’s too late for that now. However, provided you’ve been committing often, Git can pinpoint the problem. How?
+git bisect start
+
+	git bisect bad HEAD
+	git bisect good <good commit hash number>
+
+
+Git checks out a state halfway in between. Test the feature, 
+if it’s still broken: git bisect bad
+If not, replace "bad" with "good".
+Git again transports to a state halfway between the known good and bad versions, narrowing down the possibilities. After a few iterations, this binary search will lead to the commit that caused the trouble. Once finished your investigation, return to original state:
+git bisect reset
+
+
+Instead of testing every change by hand, automate the search by running:
+git bisect run my_script
+
+
+Git uses the return value of the given command, typically a one-off script, to decide whether a change is good or bad: the command should exit with code 0 when good, 125 when the change should be skipped, and anything else between 1 and 127 if it is bad. A negative return value aborts the bisect.
+
+
+j.  The HEAD tag is like a cursor that normally points at the latest commit, advancing with each new commit. Some Git commands let you move it. Which command lets you move the Head
+ 
+git reset HEAD~<number>
+					
+will move the HEAD three commits back. Thus all Git commands now act as if hadn’t made those last three commits, while the files remain in the present. 
+					
+Go back to the future: the past commits know nothing of the future. If have the SHA1 of the original HEAD then:
+					
+        git reset SHA1
+
+
+					
+If never took it down. Git saves the original HEAD as a tag called ORIG_HEAD, and can be returned safe and sound with:
+					
+        git reset ORIG_HEAD
+
+
+k.You have committed both first.txt and second.txt as one commit. However, you made a mistake. You intended to commit first.txt in the first commit and the second.txt in the second one.
+
+
+git reset HEAD~
+
+
+git rebase -i 
+To split apart the most recent commit: :
+ git reset HEAD~
+Now commit the pieces individually in the usual way, producing as many commits as needed.
+When get the rebase edit screen, find the commit want to break apart. 
+At the beginning of that line, replace pick with edit (e for short). 
+Save the buffer and exit. Rebase will now stop just after the commit you want to edit.
+ git reset HEAD~
+Commit the pieces individually in the usual way, producing as many commits as needed.
+ git rebase --continue
+
+
+
+l.  While you were working you noticed a typographic error in file.txt - you wrote wordl instead of world. Unfortunately, you have made another commit on top of the typo so simple git commit --amend is not enough.Fix the typographic error by amending commit in history.
+git rebase -i HEAD~2
+In the commit file, move the 2nd pick commit on top and change “pick” to “edit”
+In the editor, change  “wordl” into “world”, and save
+git commit --amend
+git rebase --continue
+
+
+m. You just did a git reset --hard HEAD^ and threw out your last commit. Well, it turns out you really did need those changes. You’ll never be able to implement that algorithm that perfectly twice, so you need it back. How will you do that?
+
+
+git show-ref -h HEAD
+git reset --hard HEAD^
+git show-ref -h HEAD
+
+
+So the HEAD has been backed up by one commit. At this point if we wanted it back we could just git pull, but we’re assuming that only our local repository knows about the commit. We need the SHA1 of the commit so we can bring it back. We can prove that git knows about the commit still with the fsck command:
+git fsck --lost-found
+
+
+We can also see the that git knows about the commit still by using the reflog command:
+git reflog
+
+
+So, we now have our SHA1: <commit hash number>. If we want to get immediately apply it back onto our current branch, doing a git merge will recover the commit:
+git merge <commit hash number>
+
+
+n. You were working on an issue-555 topic branch. You noticed a bug, which you fixed in rebase-complex topic branch. Then, you finished issue-555. However, you need to have bug fixed in your-master branch without any work done on issue-555.  Situation is as follows:
+ 
+Only H and I commits should be rebased onto D.
+Try to do this with a single git command.
+ 
+git rebase --onto master issue-555 rebase-complex
+ 
+ 
+2. Explain what the following commands do?
+a. git checkout -f COMMIT
+Force to check out a specific commit
+b.git clean -f -d
+	Clean all untracked files and directories, except ignored files
+c.git checkout master~5
+	checks out the master branch, reverts 5 revisions back
+d.git daemon --detach
+	Run a  simple server for Git repositories in background
+e. git rebase -i HEAD~10
+	Rebase the last 10 commits into 1
+f. git bisect reset
+	clean up the bisection state and return to the original HEAD
+g. git fsck | awk '{print $3}' | xargs -I '{}' git show {} >> blob_contents
+Verifies the connectivity and validity of the objects in the database and rint out the 3rd       input field(column), then replace “{}” in the initial-arguments with standard input and shows pointed and along with the object the tags,  and then output saves it into blob_contests file.
+h, git fetch origin && git remote show origin | grep tracked | grep -v master
+| awk '{print $1}' | xargs -I '{}' bash -c 'if [ ! "$(git cherry origin/master origin/{})" ];
+then git push origin :{}; fi
+Fetch and get all branches from origin, and show the pointed remote origin, and then find all tracked files and after that find versions matches master, then print the first column fields of the inputs. Replace all “{}” with the first input, and if did not find “git cherry origin/master origin/{}”(cherry pick origin/master or origin) command, then push the files to origin 
+h.git push --force origin feature
+ 	 Force to push the code into origin (remote code) of feature branch
+3. Please read the following case study and explain your understanding- Cherry-Picking specific commits from another branch
+My understanding:
+
+
+I think this is one of the easy way for cherry-picking something from another branch. This is a very useful commit in real industry and people use this a lot and it saves lot of time as well. These are the basic ways for check out a specific commit and put it into a different branch. Also, it is good to use git cherry-pick <commit> to have commit to the current branch. Besides, we can use git log to see a list of commits that last committed. And we can select the commits we needed with cherry-pick. If the cherry-pick commit happened to be the last commit, we can also use git revert for this.
+
+
+Also, we want cherry-pick from a feature branch into master, we will first have to check out the master or the branch that we want to cherry-pick to, and then we can cherry pick the specific command to master branch. If we want to cherry-pick multiple commands, it is better to checkout a new branch and rebase the new branch commit into master
+
+
+ 
+4. Why don't you think git deletes branches you rebase from? 
+When we do git rebase develop while our HEAD is on featureA, ,as in this example shows in the graph,  it will only change the HEAD pointer from master branch C to develop branch D, all the other history and branches will remain unchanged.
+Do one rebase to make it look like the following graph
+	Git rebase develop
+Fix rebase conflict 3 options : 
+git rebase --abort to completely undo the rebase. Git will return the branch's state as it was before git rebase was called.
+git rebase --skip to completely skip the commit. That means that none of the changes introduced by the problematic commit will be included. 
+fix the conflict.
+Do one rebase to make it look like the following graph
+git rebase -i HEAD~5
+Remove commits D by deleting d commit lines, replace “pick” with “edit”	
+Move Commit E into the same line with G, delete previous E, replace “pick” with “edit”
+Replace "pick" with "edit" to mark a commit for amending.	
+Replace "pick" with "squash" to merge a commit with the previous one.
+If you marked a commit for editing, then run:	
+          	git commit --amend
+ Otherwise, run:
+git rebase --continue
+Do you prefer merging or rebasing? Why? 
+
+
+Both merging and rebasing are two good git commands that will help us resolve git issues. Merging command basically will help us combine and merge multiple branch together and also merging new commits into the base command. And rebase will help move one of couple of commits from one branch to another. 
+
+
+I personally prefer rebase, because rebasing will make the commit history more organized, we can modify the existing commits by editing the commit file. We will be able to change, edit, delete and add new commits. 
+
+
