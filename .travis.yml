@@ -1,0 +1,24 @@
+nguage: node_js
+node_js:
+  - '6'
+sudo: required
+dist: trusty
+cache:
+    directories:
+          - node_modules
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+before_script:
+  - npm update
+  - ./script/travisBeforeScript.sh
+script:
+  - node_modules/.bin/run-tests
+env:
+    matrix:
+      - BROWSER=chrome BVER=stable
+    global:
+      - UNIT_CMD='npm run travis-unit'
+
+matrix:
+  fast_finish: true

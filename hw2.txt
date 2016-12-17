@@ -151,11 +151,11 @@ e. git rebase -i HEAD~10
 f. git bisect reset
 	clean up the bisection state and return to the original HEAD
 g. git fsck | awk '{print $3}' | xargs -I '{}' git show {} >> blob_contents
-Verifies the connectivity and validity of the objects in the database and rint out the 3rd       input field(column), then replace “{}” in the initial-arguments with standard input and shows pointed and along with the object the tags,  and then output saves it into blob_contests file.
+Verifies the connectivity and validity of the objects in the database and print out the 3rd       (input field/column) from the fsck output, then replace “{}” in the initial-arguments with standard input and and apply ‘git show’ to each column,  and then output saves it into blob_contests file.
 h, git fetch origin && git remote show origin | grep tracked | grep -v master
 | awk '{print $1}' | xargs -I '{}' bash -c 'if [ ! "$(git cherry origin/master origin/{})" ];
 then git push origin :{}; fi
-Fetch and get all branches from origin, and show the pointed remote origin, and then find all tracked files and after that find versions matches master, then print the first column fields of the inputs. Replace all “{}” with the first input, and if did not find “git cherry origin/master origin/{}”(cherry pick origin/master or origin) command, then push the files to origin 
+Fetch and get all branches from origin, and show the pointed remote origin, and then find all tracked files from master, then print the first column fields of the inputs. Replace all “{}” with the first input, and if did not find “git cherry origin/master origin/{}”(cherry pick origin/master or origin) command, then push the files to origin 
 h.git push --force origin feature
  	 Force to push the code into origin (remote code) of feature branch
 3. Please read the following case study and explain your understanding- Cherry-Picking specific commits from another branch
@@ -180,13 +180,20 @@ fix the conflict.
 Do one rebase to make it look like the following graph
 git rebase -i HEAD~5
 Remove commits D by deleting d commit lines, replace “pick” with “edit”	
-Move Commit E into the same line with G, delete previous E, replace “pick” with “edit”
-Replace "pick" with "edit" to mark a commit for amending.	
-Replace "pick" with "squash" to merge a commit with the previous one.
+Move Commit E next to commit G, replace “pick” with “squash” on G, to comint E after G together on the same line.
+
+
+(Replace "pick" with "edit" to mark a commit for amending.	
+Replace "pick" with "squash" to merge a commit with the previous one.)
 If you marked a commit for editing, then run:	
           	git commit --amend
  Otherwise, run:
 git rebase --continue
+Git branch develop
+Git rebase develop
+
+
+Or cherry picking E, F, G, F
 Do you prefer merging or rebasing? Why? 
 
 
