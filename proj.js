@@ -1,5 +1,5 @@
 const bigFunction = () => {
-  let message = 'This is one of the biggest functions that I have ever seen';
+  let message = 'This is one of the Biggest functions that I have ever seen';
   return message; 
 };
 
