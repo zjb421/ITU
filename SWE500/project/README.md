@@ -27,11 +27,11 @@ Global Access
 	1.2. Discriminators/Competitors: Ask.com, Gotitapp.co
 1.3. Possible market: Real-time Online Services - Globally
 1.4. Patent/trade mark: To start with, we search US database for existance of company name at url:- https://www.sec.gov/edgar/searchedgar/companysearch.html, later we get our company name registered, get ‘connectplus’ patented with http://www.uspto.gov/ 
-2. Project Timeline - Same as 8.2 from Muchima
+2. Project Timeline -
 Phase 1: Hiring professionals to work for our platform
 Phase 2: Open to be applied by real users who want to make extra money for certain skills (Uber platform alike)
-3. Requirement engineering (Software Engineering) (Hung)
-3.1. Summary of functional requirements (Hung)
+3. Requirement engineering (Software Engineering) 
+3.1. Summary of functional requirements 
 Connectivity: Connecting users across the platform in real time globally
 User Acceptance: Users should be able to accept and decline the service
 User Feedback: Users should be able to give honest feedbacks about the service offered.
@@ -92,7 +92,7 @@ C9 :- Folder Structure of the Program / App
 
 
 
-3. Use case (template filled out) (Chakx)
+3. Use case (template filled out)
 Story how we came up with the product. What problem does it solve?
 Every individual needs something or the other requirement and something or the other to offer, this is where we started, we wanted to have a system / application to connect the offerer & requestor instantaneously with global presence. Individual's request online on the other side other individual accepts the request online & reverts with solutions to the requestor, all of these happen instantaneously, requestor & acceptor have to get registered online validated through their credit card to get into the system, requestor pays per minute basis. One the request is serviced the requestor’s credit card is charged for the service, service provider gets paid immediately after deducting service & taxes applicable. 
 
@@ -114,7 +114,7 @@ Use Case Digram: Account Management
 
 
 
-5. Software Life Cycle Model (Muchima)
+5. Software Life Cycle Model
  
 We have used Agile methodology for project management. The initial project idea is developed by involvement of all team members and user story points. The project timeline has been set for twelve weeks. The project plan divided 5 steps (CIO Council).
  
@@ -148,7 +148,7 @@ We have used Agile methodology for project management. The initial project idea 
 -   Excellent performance
 -   High security
 
-8.1. Technologies Used (need to revised by Muchchima)
+8.1. Technologies Used 
  	-   Operation System: Web-based, Android, iOS, OS X, Linux
 Web-based is software, which use over the Internet on a web browser. Web-based does not require installation any CDs, download any software, or worry about upgrades. Example of web-based software is Gmail, Hotmail, Yahoo Mail, and so on.
 Android is a mobile operating system (OS), which based on the Linux kernel, developed by Google. Android OS is designed for use on touchscreen mobile devices such as smartphones and tablets. 
@@ -260,7 +260,7 @@ Software Test Engineer
 
 
 
-9. Quality and Test Plans (Muchima)
+9. Quality and Test Plans
  
 We applied both automation and manual testing.
  
@@ -276,7 +276,7 @@ We applied both automation and manual testing.
 
 This is what we have on the server, no table or database saved on the server.
 
-11. Glossary/preferences (Hung/Chak/Muchma)
+11. Glossary/preferences
 http://reqtest.com/requirements-blog/functional-vs-non-functional-requirements/
 
 Bhuiyan, Zahirul. “Software Testing Methodologies and types of testing.” QA Interview Questions (2016) Web. 30 June 2016. http://www.qaquestions.org/manual-testing/software-testing-methodologies-and-types-of-testing/ 
