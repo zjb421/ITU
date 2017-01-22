@@ -43,7 +43,7 @@ Authorization: System must be able to authorize user access after the authentica
 Reporting Requirements: System must be able to generate reports daily or weekly of all transactions processed.
 Historical Data such as files and recordings: System must be able to store all the historical data on the cloud and have it accessible anytime.
 Legal requirements: The company must have a set of all legal documents ready to be implemented if needed. The business must follow all legal requirements at all time
-3.2. Summary of non-functional requirements (Hung)
+3.2. Summary of non-functional requirements
 Functionality: System must be functional at all time. Technical agent on the side 24/7 to ensure the performance of the system.
 Usability: the system must be user friendly and accessible at all time.
 Reliability: System is reliable and stable at all time.
@@ -56,7 +56,7 @@ Environmental: Online anytime.
 Data Integrity
 Recoverability: Transactions and user information must be able to be recovered at all time.
 
-2. Product Architecture (Vignesh/Misha/Baller)
+2. Product Architecture
 
 Notes:
 
@@ -102,7 +102,7 @@ Problem:- No single platform to answer any question, provide complete solution i
 
 Solution:- Complete solution, everything online, instantaneous, any issue 
 
-4. Use Case UML Model of sub-system (5 types of diagram/model at least to express the system to be) (Chakx) - Need helps from Developers 
+4. Use Case UML Model of sub-system (5 types of diagram/model at least to express the system to be) - Need helps from Developers 
 
 Use Case Diagram: 
 
