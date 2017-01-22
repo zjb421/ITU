@@ -15,13 +15,6 @@ ConnectPlus App Readme
 ITU Software Engineering - Spring 2016
 Project :- ConnectPlus
 
-Project Members:
-89361 Chakravarthy Vemala
-90357 Jianbo Zhao
-90452 Vignesh Ravichandran.
-90828 Hung Tran
-90499 Muchchima Suphap
-90834 Mykhailo Shapalov
 
 Logo! 
 http://tmpfile.freelogodesign.org/ba068e9d-3119-495c-ad6b-eb51b0d9fe86.png
