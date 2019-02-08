@@ -62,4 +62,3 @@ Add any reference material:
 
 #### Google Docs
 * Link to any Google resources
-
